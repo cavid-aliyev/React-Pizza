@@ -1,8 +1,9 @@
 // !All imports
-// re inports
+// re imports
 export {default as Button} from './button'
 export {default as Header} from './header'
 export {default as Categories} from './categories'
+export {default as SortPoppup} from './SortPoppup'
 
 
 
