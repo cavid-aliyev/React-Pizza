@@ -1,5 +1,4 @@
 //dispatch for only filters (category, popup)
-
 const setSortBy = (name) => ({
     type: 'SET_SORT_BY',
     payload: name,
