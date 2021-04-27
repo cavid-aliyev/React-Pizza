@@ -2,17 +2,31 @@ import React, {useEffect} from 'react'
 import {Header} from './components';
 import {HomePage, CartPage} from './pages';
 import {Route} from 'react-router-dom'
-import {connect} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {setPizzas} from './redux/actions/pizzas'
 import axios from 'axios'
 
-function App({items}) {
+function App() {
+
+  const dispatch = useDispatch();
+  // state is our hranilishe hardaki our all stateler var
+  const state = useSelector(({pizzas, filters}) => {
+    return {
+      // istifade olunacaq stateleri cixardiram
+       items: pizzas.items,
+       sortBy: filters.sortBy
+    };
+  });
+
+  
   // server works
   useEffect(() => {
       axios.get("http://localhost:3000/db.json").then(({data}) => {
-        setPizzas(data.pizzas)
-      })
-  }, [])
+        dispatch(setPizzas(data.pizzas)) //setPizza is action
+      });
+  }, []);
+
+
 
   return (
     <div className="wrapper">
@@ -26,21 +40,5 @@ function App({items}) {
 }
 
 
-const mapStateToProps = state => {
-  return {
-    items: state.pizzas.items
-  }
-}
 
-const mapDispatchToProps = dispatch => {
-  //or setpizzas
-  return {
-    // first name is our (savepizza ex) func name and it runs setpizzas dispatch
-   setPizzas: (items) => dispatch(setPizzas(items)),
-  //  note: if prop and action name is equal u can write like:
-  //setpizzas thats all
-   dispatch
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default App;

@@ -1,10 +1,10 @@
 //dispatch for only filters (category, popup)
-const setSortBy = (name) => ({
+export const setSortBy = (name) => ({
     type: 'SET_SORT_BY',
     payload: name,
 })
 
-const setCategory = (catIndex) => ({
+export const setCategory = (catIndex) => ({
     type: 'SET_CATEGORY',
     payload: catIndex,
 })

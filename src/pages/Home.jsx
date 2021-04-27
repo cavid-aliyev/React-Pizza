@@ -19,7 +19,7 @@ function HomePage({ pizzaData }) {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {pizzaData.map((pizza) => (
+        {pizzaData && pizzaData.map((pizza) => (
           <PizzaBlock key={pizza.id} {...pizza} />
         ))}
       </div>
