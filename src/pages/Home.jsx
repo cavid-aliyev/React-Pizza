@@ -3,32 +3,34 @@ import { Categories, SortPoppup, PizzaBlock } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { setCategory } from "../redux/actions/filters";
 
-const categoryNames = ["Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"]
+const categoryNames = [
+  "Мясные",
+  "Вегетарианская",
+  "Гриль",
+  "Острые",
+  "Закрытые",
+];
+const sortItems = [
+  { name: "популярные", type: "popular" },
+  { name: "цене", type: "price" },
+  { name: "алфавиту", type: "alphabet" },
+];
 
-function HomePage() {
+function HomePage() {  
   const dispatch = useDispatch();
 
   //take pizzas from pizzas reducer
   const items = useSelector(({ pizzas }) => pizzas.items);
 
   const handleCategory = React.useCallback((index) => {
-    dispatch(setCategory(index))
-  }, [])//birdefe silka yaratdiqki rerender olmasin
+    dispatch(setCategory(index));
+  }, []); //birdefe silka yaratdiqki rerender olmasin
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          onClickItem={handleCategory}
-          items={categoryNames}
-        />
-        <SortPoppup
-          items={[
-            { name: "популярные", type: "popular" },
-            { name: "цене", type: "price" },
-            { name: "алфавиту", type: "alphabet" },
-          ]}
-        />
+        <Categories onClickItem={handleCategory} items={categoryNames} />
+        <SortPoppup items={sortItems} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
