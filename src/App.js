@@ -3,19 +3,17 @@ import {Header} from './components';
 import {HomePage, CartPage} from './pages';
 import {Route} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
-import {setPizzas} from './redux/actions/pizzas'
-import axios from 'axios'
+import {fetchPizzas} from './redux/actions/pizzas'
 
-function App() {
+
+function App() { 
 
   const dispatch = useDispatch();
 
   // server works
   useEffect(() => {
-      axios.get("http://localhost:3001/pizzas").then(({data}) => {
-        dispatch(setPizzas(data)) //setPizza is action
-      });
-  }, [dispatch]);
+    dispatch(fetchPizzas());
+  }, []);
 
 
   return (
