@@ -1,8 +1,11 @@
 //reducer for only filters (category, popup)
 
 const initialState = {
-    category: 0, //for index
-    sortBy: 'popular' //popup
+    category: null, //for index
+    sortBy: {
+        type: 'popular',
+        order: 'desc'
+      },
 }
 
 const filters = (state = initialState, action) => {
