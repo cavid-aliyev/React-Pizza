@@ -21,7 +21,9 @@ const SortPoppup = React.memo(function SortPoppup({activeSortType, items, onClic
   };
 
   const handleOutsideClick = (e) => {
-    if (!e.path.includes(sortRef.current)){
+    // for all browsers
+    const path = e.path || (e.composedPath && e.composedPath());
+    if (!path.includes(sortRef.current)){
       setPopOpen(false)
     }
   }

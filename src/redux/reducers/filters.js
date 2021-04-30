@@ -22,7 +22,6 @@ const filters = (state = initialState, action) => {
                 ...state,
                 category: action.payload
             }
-
             
         default:
             return state
