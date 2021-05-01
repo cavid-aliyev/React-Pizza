@@ -1,36 +1,59 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { Categories, SortPoppup, PizzaBlock, LoadingBlock } from '../components';
+import {
+  Categories,
+  SortPoppup,
+  PizzaBlock,
+  LoadingBlock,
+} from "../components";
 
-import { setCategory, setSortBy } from '../redux/actions/filters';
-import { fetchPizzas } from '../redux/actions/pizzas';
+import { setCategory, setSortBy } from "../redux/actions/filters";
+import { addPizzaToCart } from "../redux/actions/cart";
+import { fetchPizzas } from "../redux/actions/pizzas";
 
-
-const categoryNames = ['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+const categoryNames = [
+  "Мясные",
+  "Вегетарианская",
+  "Гриль",
+  "Острые",
+  "Закрытые",
+];
 const sortIems = [
-  { name: 'популярности', type: 'popular', order: 'desc'},
-  { name: 'цене', type: 'price', order: 'desc'},
-  { name: 'алфавит', type: 'name', order: 'asc'},
+  { name: "популярности", type: "popular", order: "desc" },
+  { name: "цене", type: "price", order: "desc" },
+  { name: "алфавит", type: "name", order: "asc" },
 ];
 
 function Home() {
   const dispatch = useDispatch();
   const items = useSelector(({ pizzas }) => pizzas.items);
+  const cartItems = useSelector(({ cart }) => cart.items);
   const isLoaded = useSelector(({ pizzas }) => pizzas.isLoaded);
   const { category, sortBy } = useSelector(({ filters }) => filters);
 
   React.useEffect(() => {
     dispatch(fetchPizzas(category, sortBy));
-  }, [dispatch,sortBy, category]);
+  }, [dispatch, sortBy, category]);
 
-  const onSelectCategory = React.useCallback((index) => {
-    dispatch(setCategory(index));
-  }, [dispatch]);
+  const onSelectCategory = React.useCallback(
+    (index) => {
+      dispatch(setCategory(index));
+    },
+    [dispatch]
+  );
 
-  const onSelectSortType = React.useCallback((type) => {
-    dispatch(setSortBy(type));
-  }, [dispatch]);
+  const onSelectSortType = React.useCallback(
+    (type) => {
+      dispatch(setSortBy(type));
+    },
+    [dispatch]
+  );
+
+  // Add button func
+  const handleAddPizzaToCart = (obj) => {
+    dispatch(addPizzaToCart(obj));
+  };
 
   return (
     <div className="container">
@@ -51,7 +74,9 @@ function Home() {
         {isLoaded
           ? items.map((obj) => (
               <PizzaBlock
+                onClickAddPizza={handleAddPizzaToCart}
                 key={obj.id}
+                addedCount = {cartItems[obj.id] && cartItems[obj.id].length}
                 {...obj}
               />
             ))
