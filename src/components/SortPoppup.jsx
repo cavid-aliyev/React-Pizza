@@ -51,6 +51,7 @@ const SortPoppup = React.memo(function SortPoppup({activeSortType, items, onClic
         <b>Сортировка по:</b>
         <span onClick={toggleVisiblePoppup}>{activeLabel}</span>
       </div>
+      
       {popOpen && (
         <div className="sort__popup">
           <ul>
